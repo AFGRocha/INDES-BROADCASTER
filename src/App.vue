@@ -1,26 +1,25 @@
 <template>
-
+  <Videos/>
   <LiveCamera/>
+  <img id="browser_video" class="video-image" alt="video" :width="540" :height="360" src="https://192.168.1.72:8080/video">
+    <LiveArea/>
 </template>
 
 <script>
 import LiveCamera from './components/LiveCamera.vue'
+import LiveArea from './components/LiveArea.vue'
+import Videos from './components/Videos.vue'
 
 export default {
   name: 'App',
   components: {
-    LiveCamera
+    LiveCamera,
+    LiveArea,
+    Videos
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>

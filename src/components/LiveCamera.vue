@@ -1,51 +1,25 @@
 <template>
-  <div id="app" class="web-camera-container">
-    <div class="camera-button">
-      <button
-        type="button"
-        class="button is-rounded"
-        :class="{ 'is-primary': !isCameraOpen, 'is-danger': isCameraOpen }"
-        @click="toggleCamera"
-      >
-        <span v-if="!isCameraOpen">Open Camera</span>
-        <span v-else>Close Camera</span>
-      </button>
-    </div>
-
-    <div v-show="isCameraOpen && isLoading" class="camera-loading">
-      <ul class="loader-circle">
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </div>
-
-    <div
-      v-if="isCameraOpen"
-      v-show="!isLoading"
-      class="camera-box"
-      :class="{ flash: isShotPhoto }"
-    >
-
-      <video ref="camera" :width="1080" :height="720" autoplay></video>
-    </div>
-  </div>
+      <video ref="camera" :width="540" :height="360" autoplay></video>
 </template>
 
 <script>
 export default {
   name: "LiveCamera",
   props: {
-    msg: String,
+    width: Number,
+    height: Number
   },
   data: function () {
     return {
-      isCameraOpen: false,
+      isCameraOpen: true,
       isPhotoTaken: false,
       isShotPhoto: false,
       isLoading: false,
       link: "#",
     };
+  },
+  created() {
+    this.createCameraElement()
   },
   methods: {
     toggleCamera() {
@@ -108,7 +82,7 @@ body {
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 1080px;
+  width: 540px;
 
   .camera-button {
     margin-bottom: 2rem;
