@@ -4,10 +4,10 @@
 
 <script>
 export default {
-  name: "LiveArea",
+  name: 'LiveArea',
   props: {
-    msg: String,
-  },
+    msg: String
+  }
 
 }
 </script>

@@ -4,10 +4,10 @@
 
 <script>
 export default {
-  name: "IPCamera", // https://192.168.1.72:8080/video
+  name: 'IPCamera', // https://192.168.1.72:8080/video
   props: {
-    msg: String,
-  },
+    msg: String
+  }
 }
 </script>
 
