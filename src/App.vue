@@ -1,10 +1,10 @@
 <template>
   <div class="teste">
     <Videos/>
-    <LiveCamera/>
+    <LiveCamera width="540" height="360"/>
     <IPCamera/>
-    <LiveArea/>
   </div>
+  <LiveCamera width="756" height="504"/>aaaasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 </template>
 
 <script>
@@ -26,6 +26,7 @@ export default {
 
 <style>
 .teste{
-  width: 50%;
+width: 50%;
+float:left;
 }
 </style>

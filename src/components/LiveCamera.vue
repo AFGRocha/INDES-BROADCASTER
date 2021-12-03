@@ -1,5 +1,5 @@
 <template>
-      <video ref="camera" :width="540" :height="360" autoplay></video>
+      <video ref="camera" :width="width" :height="height" autoplay></video>
 </template>
 
 <script>
