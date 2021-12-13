@@ -4,7 +4,7 @@
       <div class="table-row">
       <div class="table-cell">
           <div class="card rounded-0">
-            <h5 class="card-header">Video</h5>
+            <h5 class="card-header">YouTube Video</h5>
             <div class="card-body">
               <Videos :width="getSmallerWidth" height="240"/>
             </div>
@@ -22,7 +22,7 @@
           <div class="card rounded-0">
             <h5 class="card-header">IP Camera</h5>
             <div class="card-body">
-              <LiveCamera :width="getSmallerWidth" height="240"/>
+              <IPCamera :width="getSmallerWidth" height="240" :source="$store.state.ipCamera1"/>
             </div>
           </div>
         </div>
@@ -36,18 +36,32 @@
             </div>
           </div>
         </div>
+        <div class="table-cell">
+          <div class="card rounded-0">
+            <h5 class="card-header">Local Camera 2</h5>
+            <div class="card-body">
+              <LiveCamera :width="getSmallerWidth" height="240"/>
+            </div>
+          </div>
+        </div>
+        <div class="table-cell">
+          <div class="card rounded-0">
+            <h5 class="card-header">IP Camera 2</h5>
+            <div class="card-body">
+              <IPCamera :width="getSmallerWidth" height="240" :source="$store.state.ipCamera2"/>
+            </div>
+          </div>
+        </div>
       </div>
   </div>
 </div>
 <div class="element-live">
-  <div class="container">
     <div class="card rounded-0">
       <h5 class="card-header">Live Area</h5>
       <div class="card-body">
         <LiveCamera :width="getBiggerWidth" height="540"/>
       </div>
     </div>
-  </div>
 </div>
 <div class="element-preview tables-background">
   <VideoList/>
@@ -122,7 +136,7 @@ body{
 
 .element-live{
   float: left;
-  padding-left:0px;
+  padding-left:18px;
 }
 .padding-0{
   padding-right:0;

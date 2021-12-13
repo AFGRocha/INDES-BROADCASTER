@@ -3,24 +3,49 @@
       <div class="tableTitle"> Local Videos </div>
     <draggable class="" :list="list" @change="log">
       <div
-        class="m-1 rounded-md"
+        class="m-1 rounded-md whiteText"
         v-for="element in list"
         :key="element.name"
       >
-       <p> {{ element.name }} </p>
+       {{ element.name }}
+
+      <button class="inlineButtons" @click="removeVideo (element.id)"><img width="20" :src="removeIMG"></button>
+      <button class="inlineButtons" @click="videoToStore(element.url)"><img width="20" :src="changeIMG"></button>
       </div>
     </draggable>
     <div class="add">
-      <button>+</button>
+      <button class="addButton" data-bs-toggle="modal" data-bs-target="#youtubeModal">+</button>
    </div>
   </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="youtubeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Youtube Video</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label class="col-form-label">Name:</label>
+        <input type="text" class="form-control" v-model="newName" >
+        <label class="col-form-label">URL:</label>
+        <input type="text" class="form-control" v-model="newURL" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="newVideo">Add Video</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </template>
 <script>
 import { defineComponent } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 export default defineComponent({
-  name: 'LocalVideoList',
+  name: 'VideoList',
   components: {
     draggable: VueDraggableNext
   },
@@ -28,22 +53,36 @@ export default defineComponent({
     return {
       enabled: true,
       list: [
-        { name: 'Video Title', url: 'https://www.youtube.com/embed/ilXD38KGsQ8', id: 1 },
-        { name: 'Joao', id: 2 },
+        { name: 'Knockout', url: 'ballin.mp4', id: 1 },
+        { name: 'Avalon', url: 'avalon.mp4', id: 2 },
         { name: 'Jean', id: 3 },
         { name: 'Gerard', id: 4 },
-        { name: 'Gerard', id: 4 },
-        { name: 'Gerard', id: 4 }
+        { name: 'Gerard2', id: 5 },
+        { name: 'Gerard3', id: 6 }
       ],
-      dragging: false
+      dragging: false,
+      newName: '',
+      newURL: '',
+      changeIMG: require('../assets/changes.png'),
+      removeIMG: require('../assets/cross.png')
     }
   },
   methods: {
-    log (event) {
-      console.log(event)
+    videoToStore (id) {
+      this.$store.commit('updateLocalVideo', id)
+    },
+    removeVideo (selecterdId) {
+      const index = this.list.findIndex(x => x.id === selecterdId)
+      this.list = [...this.list.slice(0, index), ...this.list.slice(index + 1)]
+    },
+    newVideo () {
+      const lastId = Math.max.apply(Math, this.list.map(function (o) { return o.id }))
+      this.list.push({ name: this.newName, url: this.getId(this.newURL), id: lastId + 1 })
+      this.newName = ''
+      this.newURL = ''
     }
   }
-})
+}) //
 </script>
 
 <style scoped>
@@ -54,11 +93,11 @@ export default defineComponent({
     background-color: rgb(31, 30, 31);
     margin-right: 5px;
 }
-p {
+.whiteText {
   color: white;
 }
 
-button {
+.addButton {
   background-color: inherit;
   border: none;
   color: white;
@@ -67,6 +106,18 @@ button {
   display: inline-block;
   font-size: 30px;
   cursor: pointer;
+}
+
+.inlineButtons {
+  background-color: inherit;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  float: right;
 }
 
 .add{
