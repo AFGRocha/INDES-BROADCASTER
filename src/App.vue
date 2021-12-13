@@ -59,7 +59,7 @@
     <div class="card rounded-0">
       <h5 class="card-header">Live Area</h5>
       <div class="card-body">
-        <LiveCamera :width="getBiggerWidth" height="540"/>
+        <component :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource"></component>
       </div>
     </div>
 </div>
@@ -68,12 +68,18 @@
   <LocalVideoList/>
   <IPList/>
 </div>
-
+<div class="element-live tables-background">
+  <button @click="changeLive('Videos')">Youtube</button>
+  <button @click="changeLive('LocalVideo')">Local</button>
+  <button @click="changeLive('LiveCamera')">Camera 1</button>
+  <button @click="changeLive('LiveCamera')">Camera 2</button>
+  <button @click="changeLive('IPCamera', $store.state.ipCamera1)">IP 1</button>
+  <button @click="changeLive('IPCamera',$store.state.ipCamera2)">IP 2</button>
+</div>
 </template>
 
 <script>
 import LiveCamera from './components/LiveCamera.vue'
-import LiveArea from './components/LiveArea.vue'
 import Videos from './components/Videos.vue' // <IPCamera :width="getSmallerWidth" height="360"/>
 import IPCamera from './components/IPCamera.vue'
 import VideoList from './components/VideoList.vue'
@@ -85,7 +91,6 @@ export default {
   name: 'App',
   components: {
     LiveCamera,
-    LiveArea,
     Videos,
     IPCamera,
     VideoList,
@@ -97,7 +102,9 @@ export default {
     return {
       myArray: [{ name: 'teste', id: 0 }, { name: 'teste2', id: 1 }],
       drag: false,
-      tableWidth: 0
+      tableWidth: 0,
+      liveArea: 'LiveCamera',
+      liveIPSource: ''
     }
   },
   created () {
@@ -106,6 +113,12 @@ export default {
   mounted () {
     const test = document.getElementById('tables')
     console.log(test.width)
+  },
+  methods: {
+    changeLive (component, source) {
+      this.liveArea = component
+      this.liveIPSource = source
+    }
   },
   computed: {
     // a computed getter
@@ -120,6 +133,9 @@ export default {
     },
     getBiggerHeight: function () {
       return (window.innerHeight / 2)
+    },
+    getLiveArea: function () {
+      return this.liveArea
     }
   }
 }
