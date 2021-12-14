@@ -69,12 +69,36 @@
   <IPList/>
 </div>
 <div class="element-live tables-background">
-  <button @click="changeLive('Videos')">Youtube</button>
-  <button @click="changeLive('LocalVideo')">Local</button>
-  <button @click="changeLive('LiveCamera')">Camera 1</button>
-  <button @click="changeLive('LiveCamera')">Camera 2</button>
-  <button @click="changeLive('IPCamera', $store.state.ipCamera1)">IP 1</button>
-  <button @click="changeLive('IPCamera',$store.state.ipCamera2)">IP 2</button>
+  <div :style="{width:  getBiggerWidth + 'px' }">
+    <center>
+    <button class="switchButton" @click="changeLive('Videos')">Youtube</button>
+    <button class="switchButton" @click="changeLive('LiveCamera')">Camera 1</button>
+    <button class="switchButton" @click="changeLive('IPCamera', $store.state.ipCamera1)">IP Cam 1</button>
+    </center>
+  </div>
+
+  <div>
+    <center>
+    <button class="switchButton" @click="changeLive('LocalVideo')">Local</button>
+    <button class="switchButton" @click="changeLive('LiveCamera')">Camera 2</button>
+    <button class="switchButton" @click="changeLive('IPCamera',$store.state.ipCamera2)">IP Cam 2</button>
+    </center>
+  </div>
+  <div>
+    <center>
+     <button class="switchButton large" @click="changeLive('IPCamera',$store.state.ipCamera2)">Stream Broadcast</button>
+    </center>
+  </div>
+    <div>
+    <center>
+     <button class="switchButton large" @click="changeLive('IPCamera',$store.state.ipCamera2)">Record Broadcast</button>
+    </center>
+  </div>
+    <div>
+    <center>
+     <button class="switchButton large" @click="changeLive('IPCamera',$store.state.ipCamera2)">Play playlist</button>
+    </center>
+  </div>
 </div>
 </template>
 
@@ -177,5 +201,39 @@ body{
 
 .tables-background {
   background-color: rgb(58, 57, 58);
+}
+
+.switchButton {
+  background-color: #222;
+  border-radius: 4px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 10px;
+  min-height: 33px;
+  min-width: 150px;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.switchButton:hover,
+.switchButton:focus {
+  opacity: .75;
+}
+
+.large{
+width: 489px;
 }
 </style>
