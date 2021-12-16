@@ -7,7 +7,8 @@ export default {
   name: 'LiveCamera',
   props: {
     width: Number,
-    height: Number
+    height: Number,
+    id: String
   },
   data: function () {
     return {
@@ -39,18 +40,22 @@ export default {
 
       const constraints = (window.constraints = {
         audio: false,
-        video: true
+        video: { deviceId: this.id }
       })
-
+      console.log(constraints)
       navigator.mediaDevices
         .getUserMedia(constraints)
         .then((stream) => {
           this.isLoading = false
+          setTimeout(() => {
+            console.log(this.$refs.camera)
+          }, 2000)
+
           this.$refs.camera.srcObject = stream
         })
-        .catch(() => {
+        .catch((error) => {
           this.isLoading = false
-          alert("May the browser didn't support or there is some errors.")
+          alert(error)
         })
     },
 

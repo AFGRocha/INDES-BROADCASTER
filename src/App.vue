@@ -12,9 +12,10 @@
         </div>
         <div class="table-cell">
           <div class="card rounded-0">
-            <h5 class="card-header">Local Camera</h5>
+            <h5 class="card-header">Local Camera </h5>
+             <button class="addButton" data-bs-toggle="modal" data-bs-target="#cameraModal">+</button>
             <div class="card-body">
-              <LiveCamera :width="getSmallerWidth" height="240"/>
+              <LiveCamera :width="getSmallerWidth" height="240" :id="localCamera1" :key="localCamera1"/>
             </div>
           </div>
         </div>
@@ -40,7 +41,7 @@
           <div class="card rounded-0">
             <h5 class="card-header">Local Camera 2</h5>
             <div class="card-body">
-              <LiveCamera :width="getSmallerWidth" height="240"/>
+              <LiveCamera :width="getSmallerWidth" height="240" :id="localCamera2"/>
             </div>
           </div>
         </div>
@@ -59,7 +60,7 @@
     <div class="card rounded-0">
       <h5 class="card-header">Live Area</h5>
       <div class="card-body">
-        <component :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource"></component>
+        <component :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource" :id="localCamera2"></component>
       </div>
     </div>
 </div>
@@ -100,6 +101,27 @@
     </center>
   </div>
 </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="cameraModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Youtube Video</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <select v-model="selectedCam" class="form-select" aria-label="Default select example">
+          <option v-for="camera in availableCameras" :key="camera.id" :value="camera.id">{{ camera.name}}</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="changeCam(1,selectedCam)">Change Camera</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -128,11 +150,28 @@ export default {
       drag: false,
       tableWidth: 0,
       liveArea: 'LiveCamera',
-      liveIPSource: ''
+      liveIPSource: '',
+      availableCameras: [],
+      localCamera1: '22887e4d026d0e60a4a60ae0ad4366128b0054185b0096214f9905d384e37835',
+      localCamera2: '4c548f99f375d149a1426259a08ea3bbf1f714fa36f64c459f074c8ccbb89f9e',
+      selectedCam: ''
     }
   },
   created () {
+    navigator.mediaDevices.enumerateDevices()
+      .then((devices) => {
+        devices.forEach((device) => {
+          if (device.kind === 'videoinput') {
+            this.availableCameras.push({ id: device.deviceId, name: device.label })
+          }
+        })
+      })
+      .catch(function (err) {
+        console.log(err.name + ': ' + err.message)
+      })
+
     this.tableWidth = (window.innerWidth / 2) / 3 + 'px'
+    console.log(this.availableCameras)
   },
   mounted () {
     const test = document.getElementById('tables')
@@ -142,6 +181,12 @@ export default {
     changeLive (component, source) {
       this.liveArea = component
       this.liveIPSource = source
+    },
+    changeCam (camNumber, camID) {
+      if (camNumber === 1) {
+        this.localCamera1 = camID
+      }
+      console.log(this.localCamera1)
     }
   },
   computed: {
