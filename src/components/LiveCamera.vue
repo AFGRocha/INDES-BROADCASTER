@@ -22,6 +22,9 @@ export default {
   created () {
     this.createCameraElement()
   },
+  beforeUnmount () {
+    this.stopCameraStream()
+  },
   methods: {
     toggleCamera () {
       if (this.isCameraOpen) {
