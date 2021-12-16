@@ -72,17 +72,17 @@
 <div class="element-live tables-background">
   <div :style="{width:  getBiggerWidth + 'px' }">
     <center>
-    <button class="switchButton" @click="changeLive('Videos')">Youtube</button>
-    <button class="switchButton" @click="changeLive('LiveCamera')">Camera 1</button>
-    <button class="switchButton" @click="changeLive('IPCamera', $store.state.ipCamera1)">IP Cam 1</button>
+    <button class="switchButton" @click="changeLive($event, 'Videos')">Youtube</button>
+    <button ref="camera1Button" class="switchButton selectedButton" @click="changeLive($event, 'LiveCamera')">Camera 1</button>
+    <button class="switchButton" @click="changeLive($event, 'IPCamera', $store.state.ipCamera1)">IP Cam 1</button>
     </center>
   </div>
 
   <div>
     <center>
-    <button class="switchButton" @click="changeLive('LocalVideo')">Local</button>
-    <button class="switchButton" @click="changeLive('LiveCamera')">Camera 2</button>
-    <button class="switchButton" @click="changeLive('IPCamera',$store.state.ipCamera2)">IP Cam 2</button>
+    <button class="switchButton" @click="changeLive($event, 'LocalVideo')">Local</button>
+    <button class="switchButton" @click="changeLive($event, 'LiveCamera')">Camera 2</button>
+    <button class="switchButton" @click="changeLive($event, 'IPCamera',$store.state.ipCamera2)">IP Cam 2</button>
     </center>
   </div>
   <div>
@@ -154,7 +154,8 @@ export default {
       availableCameras: [],
       localCamera1: '22887e4d026d0e60a4a60ae0ad4366128b0054185b0096214f9905d384e37835',
       localCamera2: '4c548f99f375d149a1426259a08ea3bbf1f714fa36f64c459f074c8ccbb89f9e',
-      selectedCam: ''
+      selectedCam: '',
+      previousElement: {}
     }
   },
   created () {
@@ -174,11 +175,15 @@ export default {
     console.log(this.availableCameras)
   },
   mounted () {
-    const test = document.getElementById('tables')
-    console.log(test.width)
+    this.previousElement = this.$refs.camera1Button
   },
   methods: {
-    changeLive (component, source) {
+    changeLive (e, component, source) {
+      console.log(this.previousElement)
+      const element = e.target
+      this.previousElement.classList.remove('selectedButton')
+      element.classList.add('selectedButton')
+      this.previousElement = element
       this.liveArea = component
       this.liveIPSource = source
     },
@@ -249,7 +254,7 @@ body{
 }
 
 .switchButton {
-  background-color: #222;
+  background-color: #4c4c4c;
   border-radius: 4px;
   border-style: none;
   box-sizing: border-box;
@@ -273,9 +278,11 @@ body{
   touch-action: manipulation;
 }
 
-.switchButton:hover,
-.switchButton:focus {
+.switchButton:hover {
   opacity: .75;
+}
+.selectedButton {
+ background-color: #222 !important;
 }
 
 .large{
