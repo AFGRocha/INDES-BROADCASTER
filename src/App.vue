@@ -60,7 +60,7 @@
     <div class="card rounded-0">
       <h5 class="card-header">Live Area</h5>
       <div class="card-body">
-        <component :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource" :id="localCamera2"></component>
+        <component :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource" :id="selectedCam" :key="selectedCam"></component>
       </div>
     </div>
 </div>
@@ -159,6 +159,7 @@ export default {
     }
   },
   created () {
+    this.selectedCam = this.localCamera1
     navigator.mediaDevices.enumerateDevices()
       .then((devices) => {
         devices.forEach((device) => {
@@ -179,19 +180,23 @@ export default {
   },
   methods: {
     changeLive (e, component, source) {
-      console.log(this.previousElement)
+      console.log(e.target.innerHTML)
       const element = e.target
       this.previousElement.classList.remove('selectedButton')
       element.classList.add('selectedButton')
       this.previousElement = element
       this.liveArea = component
       this.liveIPSource = source
+      if (element.innerHTML === 'Camera 1') {
+        this.selectedCam = this.localCamera1
+      } else if (element.innerHTML === 'Camera 2') {
+        this.selectedCam = this.localCamera2
+      }
     },
     changeCam (camNumber, camID) {
       if (camNumber === 1) {
         this.localCamera1 = camID
       }
-      console.log(this.localCamera1)
     }
   },
   computed: {
