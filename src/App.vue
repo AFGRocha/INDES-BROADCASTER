@@ -12,8 +12,7 @@
         </div>
         <div class="table-cell">
           <div class="card rounded-0">
-            <h5 class="card-header">Local Camera </h5>
-             <button class="addButton" data-bs-toggle="modal" data-bs-target="#cameraModal">+</button>
+            <h5 class="card-header">Local Camera <button class="inlineButtons" @click="selectGear('camera1')" data-bs-toggle="modal" data-bs-target="#cameraModal"><img width="20" :src="gear"></button></h5>
             <div class="card-body">
               <LiveCamera :width="getSmallerWidth" height="240" :id="localCamera1" :key="localCamera1"/>
             </div>
@@ -39,9 +38,9 @@
         </div>
         <div class="table-cell">
           <div class="card rounded-0">
-            <h5 class="card-header">Local Camera 2</h5>
+            <h5 class="card-header">Local Camera 2 <button class="inlineButtons" @click="selectGear('camera2')" data-bs-toggle="modal" data-bs-target="#cameraModal"><img width="20" :src="gear"></button></h5>
             <div class="card-body">
-              <LiveCamera :width="getSmallerWidth" height="240" :id="localCamera2"/>
+              <LiveCamera :width="getSmallerWidth" height="240" :id="localCamera2" :key="localCamera2"/>
             </div>
           </div>
         </div>
@@ -60,7 +59,7 @@
     <div class="card rounded-0">
       <h5 class="card-header">Live Area</h5>
       <div class="card-body">
-        <component :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource" :id="selectedCam" :key="selectedCam"></component>
+        <component :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource" :id="liveCamera" :key="liveCamera"></component>
       </div>
     </div>
 </div>
@@ -111,13 +110,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <select v-model="selectedCam" class="form-select" aria-label="Default select example">
+        <select v-model="selectedCam[selectedGear]" class="form-select" aria-label="Default select example">
           <option v-for="camera in availableCameras" :key="camera.id" :value="camera.id">{{ camera.name}}</option>
         </select>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="changeCam(1,selectedCam)">Change Camera</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="changeCam(selectedGear,selectedCam[selectedGear])">Change Camera</button>
       </div>
     </div>
   </div>
@@ -154,12 +153,15 @@ export default {
       availableCameras: [],
       localCamera1: '22887e4d026d0e60a4a60ae0ad4366128b0054185b0096214f9905d384e37835',
       localCamera2: '4c548f99f375d149a1426259a08ea3bbf1f714fa36f64c459f074c8ccbb89f9e',
-      selectedCam: '',
-      previousElement: {}
+      liveCamera: '',
+      selectedCam: { camera1: '', camera2: '' },
+      previousElement: {},
+      selectedGear: '',
+      gear: require('./assets/gear.png')
     }
   },
   created () {
-    this.selectedCam = this.localCamera1
+    console.log(this.selectedCam.camera1)
     navigator.mediaDevices.enumerateDevices()
       .then((devices) => {
         devices.forEach((device) => {
@@ -188,15 +190,20 @@ export default {
       this.liveArea = component
       this.liveIPSource = source
       if (element.innerHTML === 'Camera 1') {
-        this.selectedCam = this.localCamera1
+        this.liveCamera = this.localCamera1
       } else if (element.innerHTML === 'Camera 2') {
-        this.selectedCam = this.localCamera2
+        this.liveCamera = this.localCamera2
       }
     },
     changeCam (camNumber, camID) {
-      if (camNumber === 1) {
+      if (camNumber === 'camera1') {
         this.localCamera1 = camID
+      } else if (camNumber === 'camera2') {
+        this.localCamera2 = camID
       }
+    },
+    selectGear (gear) {
+      this.selectedGear = gear
     }
   },
   computed: {
@@ -292,5 +299,17 @@ body{
 
 .large{
 width: 489px;
+}
+
+.inlineButtons {
+  background-color: inherit;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  float: right;
 }
 </style>
