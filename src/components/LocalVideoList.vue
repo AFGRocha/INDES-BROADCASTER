@@ -14,12 +14,12 @@
       </div>
     </draggable>
     <div class="add">
-      <button class="addButton" data-bs-toggle="modal" data-bs-target="#youtubeModal">+</button>
+      <button class="addButton" data-bs-toggle="modal" data-bs-target="#localvidModal">+</button>
    </div>
   </div>
 
   <!-- Modal -->
-<div class="modal fade" id="youtubeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="localvidModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -29,8 +29,9 @@
       <div class="modal-body">
         <label class="col-form-label">Name:</label>
         <input type="text" class="form-control" v-model="newName" >
-        <label class="col-form-label">URL:</label>
-        <input type="text" class="form-control" v-model="newURL" >
+        <br>
+         <input type="file" ref="doc" @change="readFile()" />
+      <div>{{content}}</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -64,7 +65,9 @@ export default defineComponent({
       newName: '',
       newURL: '',
       changeIMG: require('../assets/changes.png'),
-      removeIMG: require('../assets/cross.png')
+      removeIMG: require('../assets/cross.png'),
+      file: null,
+      content: null
     }
   },
   methods: {
@@ -80,6 +83,25 @@ export default defineComponent({
       this.list.push({ name: this.newName, url: this.getId(this.newURL), id: lastId + 1 })
       this.newName = ''
       this.newURL = ''
+    },
+    readFile () {
+      this.file = this.$refs.doc.files[0]
+      console.log(this.file)
+      const reader = new FileReader()
+      if (this.file.name.includes('.txt')) {
+        reader.onload = (res) => {
+          this.content = res.target.result
+        }
+        reader.onerror = (err) => console.log(err)
+        reader.readAsText(this.file)
+      } else {
+        this.content = 'check the console for file output'
+        reader.onload = (res) => {
+          console.log(res.target.result)
+        }
+        reader.onerror = (err) => console.log(err)
+        reader.readAsText(this.file)
+      }
     }
   }
 }) //
