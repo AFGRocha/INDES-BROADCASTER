@@ -59,6 +59,7 @@
     <div class="card rounded-0">
       <h5 class="card-header">Live Area</h5>
       <div class="card-body">
+        <img v-show="isLogo" class="logoImg" :src="ippLogo">
         <component :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource" :id="liveCamera" :key="liveCamera"></component>
       </div>
     </div>
@@ -86,7 +87,7 @@
   </div>
   <div>
     <center>
-     <button class="switchButton large" @click="changeLive('IPCamera',$store.state.ipCamera2)">Stream Broadcast</button>
+     <button class="switchButton large" @click="showLogo">Stream Broadcast</button>
     </center>
   </div>
     <div>
@@ -157,7 +158,10 @@ export default {
       selectedCam: { camera1: '', camera2: '' },
       previousElement: {},
       selectedGear: '',
-      gear: require('./assets/gear.png')
+      gear: require('./assets/gear.png'),
+      ippLogo: require('./assets/ipp.png'),
+      isLogo: false,
+      logoController: -1
     }
   },
   created () {
@@ -204,6 +208,15 @@ export default {
     },
     selectGear (gear) {
       this.selectedGear = gear
+    },
+    showLogo () {
+      console.log(this.isLogo)
+      this.logoController = -this.logoController
+      if(this.logoController === 1) {
+        this.isLogo = true
+      } else {
+        this.isLogo = false
+      }
     }
   },
   computed: {
@@ -311,5 +324,13 @@ width: 489px;
   font-size: 16px;
   cursor: pointer;
   float: right;
+}
+
+.logoImg {
+  width: 20%;
+  position: absolute;
+  z-index: 2;
+  margin-left: 550px;
+  margin-top: 10px;
 }
 </style>
