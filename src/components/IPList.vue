@@ -101,7 +101,7 @@ export default defineComponent({
 <style scoped>
 .border {
     border-style: groove;
-    width: 32%;
+    width: 24%;
     float:left;
     background-color: rgb(31, 30, 31);
     margin-right: 5px;

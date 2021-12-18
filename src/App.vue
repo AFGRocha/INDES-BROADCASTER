@@ -64,13 +64,14 @@
       </div>
     </div>
 </div>
-<div class="element-preview tables-background">
+<div class="element-lists tables-background">
   <VideoList/>
   <LocalVideoList/>
   <IPList/>
+  <Playlist/>
 </div>
-<div class="element-live tables-background">
-  <div :style="{width:  getBiggerWidth + 'px' }">
+<div class="element-buttons tables-background">
+  <div>
     <center>
     <button class="switchButton" @click="changeLive($event, 'Videos')">Youtube</button>
     <button ref="camera1Button" class="switchButton selectedButton" @click="changeLive($event, 'LiveCamera')">Camera 1</button>
@@ -132,6 +133,7 @@ import VideoList from './components/VideoList.vue'
 import LocalVideoList from './components/LocalVideoList.vue'
 import IPList from './components/IPList.vue'
 import LocalVideo from './components/LocalVideo.vue'
+import Playlist from './components/Playlist.vue'
 
 export default {
   name: 'App',
@@ -142,7 +144,8 @@ export default {
     VideoList,
     LocalVideoList,
     IPList,
-    LocalVideo
+    LocalVideo,
+    Playlist
   },
   data: function () {
     return {
@@ -212,7 +215,7 @@ export default {
     showLogo () {
       console.log(this.isLogo)
       this.logoController = -this.logoController
-      if(this.logoController === 1) {
+      if (this.logoController === 1) {
         this.isLogo = true
       } else {
         this.isLogo = false
@@ -252,6 +255,16 @@ body{
 .element-live{
   float: left;
   padding-left:18px;
+}
+
+.element-lists{
+  width: 65%;
+  float: left;
+}
+
+.element-buttons{
+  width: 35%;
+  float: left;
 }
 .padding-0{
   padding-right:0;

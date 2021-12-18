@@ -1,6 +1,6 @@
 <template>
   <div class="border">
-      <div class="tableTitle"> Youtube Videos </div>
+      <div class="tableTitle"> Playlist </div>
     <draggable class="" :list="list" @change="log">
       <div
         class="m-1 rounded-md whiteText"
@@ -45,7 +45,7 @@
 import { defineComponent } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 export default defineComponent({
-  name: 'VideoList',
+  name: 'Playlist',
   components: {
     draggable: VueDraggableNext
   },
