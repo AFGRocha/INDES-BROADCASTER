@@ -8,7 +8,7 @@ export default createStore({
     currentLocalVideo: 'globe.mp4',
     playlist: {},
     availableVideos: [
-      { name: 'Bunny', url: 'mov_bbb.mp4', type: 'local' },
+      { name: 'Globe', url: 'globe.mp4', type: 'local' },
       { name: 'Design', url: 'design.mp4', type: 'local' },
       { name: 'Bullshit', url: 'ilXD38KGsQ8', type: 'youtube' },
       { name: 'Larry Lurr Memes', url: 'e4AYkPaRQAA', type: 'youtube' }

@@ -163,7 +163,7 @@ export default {
       selectedCam: { camera1: '', camera2: '' },
       previousElement: {},
       selectedGear: '',
-      gear: require('./assets/gear.png'),
+      gear: require('./assets/gear_white.png'),
       ippLogo: require('./assets/ipp.png'),
       isLogo: false,
       logoController: -1
@@ -370,5 +370,18 @@ width: 489px;
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.card-body{
+ background-color: rgb(31, 30, 31) !important;
+}
+
+.card-header{
+ background-color: rgb(70, 69, 70) !important;
+ color: white;
+}
+
+.card{
+ background-color: rgb(54, 53, 54) !important;
 }
 </style>
