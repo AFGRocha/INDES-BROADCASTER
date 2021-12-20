@@ -31,7 +31,6 @@
         <input type="text" class="form-control" v-model="newName" >
         <br>
          <input type="file" ref="doc" @change="readFile()" />
-      <div>{{content}}</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -54,12 +53,11 @@ export default defineComponent({
     return {
       enabled: true,
       list: [
-        { name: 'Knockout', url: 'ballin.mp4', id: 1 },
-        { name: 'Avalon', url: 'avalon.mp4', id: 2 }
+        { name: 'Globe', url: 'globe.mp4', id: 1 },
+        { name: 'Design', url: 'design.mp4', id: 2 }
       ],
       dragging: false,
       newName: '',
-      newURL: '',
       changeIMG: require('../assets/changes.png'),
       removeIMG: require('../assets/cross.png'),
       file: null,
@@ -76,28 +74,20 @@ export default defineComponent({
     },
     newVideo () {
       const lastId = Math.max.apply(Math, this.list.map(function (o) { return o.id }))
-      this.list.push({ name: this.newName, url: this.getId(this.newURL), id: lastId + 1 })
+      this.list.push({ name: this.newName, url: this.file.name, id: lastId + 1 })
       this.newName = ''
-      this.newURL = ''
+      this.file = null
     },
     readFile () {
       this.file = this.$refs.doc.files[0]
       console.log(this.file)
       const reader = new FileReader()
-      if (this.file.name.includes('.txt')) {
-        reader.onload = (res) => {
-          this.content = res.target.result
-        }
-        reader.onerror = (err) => console.log(err)
-        reader.readAsText(this.file)
-      } else {
-        this.content = 'check the console for file output'
-        reader.onload = (res) => {
-          console.log(res.target.result)
-        }
-        reader.onerror = (err) => console.log(err)
-        reader.readAsText(this.file)
+      this.content = 'check the console for file output'
+      reader.onload = (res) => {
+        console.log(res.target.result)
       }
+      reader.onerror = (err) => console.log(err)
+      reader.readAsText(this.file)
     }
   }
 }) //
