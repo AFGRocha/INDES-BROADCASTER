@@ -1,6 +1,6 @@
 <template>
 <video id="teste" :width="width" :height="height" controls>
-  <source :src="require(`C:/Users/anton/Videos/INDES-BROADCASTER/${video}`)" type="video/mp4">
+  <source :src="require(`../assets/videos/${video}`)" type="video/mp4">
   Your browser does not support HTML video.
 </video>
 

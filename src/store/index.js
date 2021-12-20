@@ -5,7 +5,8 @@ export default createStore({
     currentYoutube: 'ilXD38KGsQ8',
     ipCamera1: 'https://192.168.1.76:8080/video',
     ipCamera2: 'http://185.10.80.33:8082/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER',
-    currentLocalVideo: 'avalon.mp4'
+    currentLocalVideo: 'mov_bbb.mp4',
+    playlist: {}
   },
   mutations: {
     updateYoutube (state, video) {

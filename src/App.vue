@@ -68,7 +68,7 @@
   <VideoList/>
   <LocalVideoList/>
   <IPList/>
-  <Playlist/>
+  <PlaylistList/>
 </div>
 <div class="element-buttons tables-background">
   <div>
@@ -98,7 +98,7 @@
   </div>
     <div>
     <center>
-     <button class="switchButton large" @click="changeLive('IPCamera',$store.state.ipCamera2)">Play playlist</button>
+     <button class="switchButton large" @click="startPlaylist">Play playlist</button>
     </center>
   </div>
 </div>
@@ -108,7 +108,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Youtube Video</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Change Camera</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -133,6 +133,7 @@ import VideoList from './components/VideoList.vue'
 import LocalVideoList from './components/LocalVideoList.vue'
 import IPList from './components/IPList.vue'
 import LocalVideo from './components/LocalVideo.vue'
+import PlaylistList from './components/PlaylistList.vue'
 import Playlist from './components/Playlist.vue'
 
 export default {
@@ -145,6 +146,7 @@ export default {
     LocalVideoList,
     IPList,
     LocalVideo,
+    PlaylistList,
     Playlist
   },
   data: function () {
@@ -220,6 +222,9 @@ export default {
       } else {
         this.isLogo = false
       }
+    },
+    startPlaylist () {
+      this.liveArea = 'Playlist'
     }
   },
   computed: {
