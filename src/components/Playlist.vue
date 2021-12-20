@@ -29,10 +29,6 @@ export default {
   components: {
     YoutubeVue3
   },
-  mounted () {
-    // const mediaElem = document.getElementById('playlistVideo')
-    // mediaElem.play()
-  },
   methods: {
     videoEnd () {
       this.counter++

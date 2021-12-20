@@ -1,7 +1,7 @@
 <template>
   <div class="obsList">
       <div class="tableTitle"> Playlist </div>
-    <draggable class="scroll" :list="list" @change="log">
+    <draggable class="scroll" :list="list" @change="updateList">
       <div
         class="m-1 rounded-md whiteText"
         v-for="element in list"
@@ -13,23 +13,22 @@
       </div>
     </draggable>
     <div class="add">
-      <button class="addButton" data-bs-toggle="modal" data-bs-target="#youtubeModal">+</button>
+      <button class="addButton" data-bs-toggle="modal" data-bs-target="#playlistModal">+</button>
    </div>
   </div>
 
   <!-- Modal -->
-<div class="modal fade" id="youtubeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="playlistModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Youtube Video</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Video</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <label class="col-form-label">Name:</label>
-        <input type="text" class="form-control" v-model="newName" >
-        <label class="col-form-label">URL:</label>
-        <input type="text" class="form-control" v-model="newURL" >
+        <select   v-model="selectedVideo" class="form-select" aria-label="Default select example">
+          <option v-for="video in $store.state.availableVideos" :key="video.name" :value="video">{{ video.name }}</option>
+        </select>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -52,20 +51,20 @@ export default defineComponent({
     return {
       enabled: true,
       list: [
-        { name: 'Bunny', url: 'mov_bbb.mp4', id: 1, type: 'local' },
+        { name: 'Globe', url: 'globe.mp4', id: 1, type: 'local' },
         { name: 'Design', url: 'design.mp4', id: 2, type: 'local' },
         { name: 'Bullshit', url: 'ilXD38KGsQ8', id: 3, type: 'youtube' },
-        { name: 'Design', url: 'design.mp4', id: 2, type: 'local' }
+        { name: 'Design', url: 'design.mp4', id: 4, type: 'local' }
       ],
       dragging: false,
       newName: '',
       newURL: '',
-      removeIMG: require('../assets/cross.png')
+      removeIMG: require('../assets/cross.png'),
+      selectedVideo: {}
     }
   },
   created () {
     this.$store.state.playlist = this.list
-    console.log(this.$store.state.playlist)
   },
   methods: {
     getId (url) {
@@ -82,9 +81,12 @@ export default defineComponent({
     },
     newVideo () {
       const lastId = Math.max.apply(Math, this.list.map(function (o) { return o.id }))
-      this.list.push({ name: this.newName, url: this.getId(this.newURL), id: lastId + 1 })
-      this.newName = ''
-      this.newURL = ''
+      console.log(this.selectedVideo)
+      this.list.push({ name: this.selectedVideo.name, url: this.selectedVideo.url, id: lastId + 1, type: this.selectedVideo.type })
+    },
+    updateList () {
+      this.$store.state.playlist = this.list
+      console.log(this.list)
     }
   }
 }) //
