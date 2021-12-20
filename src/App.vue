@@ -349,6 +349,6 @@ width: 489px;
   position: absolute;
   z-index: 2;
   margin-left: 550px;
-  margin-top: 10px;
+  margin-top: 55px;
 }
 </style>

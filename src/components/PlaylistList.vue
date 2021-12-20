@@ -10,7 +10,6 @@
        {{ element.name }}
 
       <button class="inlineButtons" @click="removeVideo (element.id)"><img width="20" :src="removeIMG"></button>
-      <button class="inlineButtons" @click="videoToStore(element.url)"><img width="20" :src="changeIMG"></button>
       </div>
     </draggable>
     <div class="add">
@@ -53,13 +52,14 @@ export default defineComponent({
     return {
       enabled: true,
       list: [
-        { name: 'Bunny', url: 'mov_bbb.mp4', id: 1 },
-        { name: 'Design', url: 'design.mp4', id: 2 }
+        { name: 'Bunny', url: 'mov_bbb.mp4', id: 1, type: 'local' },
+        { name: 'Design', url: 'design.mp4', id: 2, type: 'local' },
+        { name: 'Bullshit', url: 'ilXD38KGsQ8', id: 3, type: 'youtube' },
+        { name: 'Design', url: 'design.mp4', id: 2, type: 'local' },
       ],
       dragging: false,
       newName: '',
       newURL: '',
-      changeIMG: require('../assets/changes.png'),
       removeIMG: require('../assets/cross.png')
     }
   },
@@ -75,9 +75,6 @@ export default defineComponent({
       return (match && match[2].length === 11)
         ? match[2]
         : null
-    },
-    videoToStore (id) {
-      this.$store.commit('updateYoutube', id)
     },
     removeVideo (selecterdId) {
       const index = this.list.findIndex(x => x.id === selecterdId)
