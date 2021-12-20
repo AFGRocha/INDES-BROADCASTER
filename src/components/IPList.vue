@@ -1,7 +1,7 @@
 <template>
-  <div class="border">
+  <div class="obsList">
       <div class="tableTitle"> IP Cameras</div>
-    <draggable class="" :list="list" @change="log">
+    <draggable class="scroll" :list="list" @change="log">
       <div
         class="m-1 rounded-md whiteText"
         v-for="element in list"
@@ -55,11 +55,7 @@ export default defineComponent({
       enabled: true,
       list: [
         { name: 'Phone', url: 'https://192.168.1.76:8080/video', id: 1 },
-        { name: 'Spain', url: 'http://185.10.80.33:8082/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER', id: 2 },
-        { name: 'Jean', id: 3 },
-        { name: 'Gerard', id: 4 },
-        { name: 'Gerard2', id: 5 },
-        { name: 'Gerard3', id: 6 }
+        { name: 'Spain', url: 'http://185.10.80.33:8082/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER', id: 2 }
       ],
       dragging: false,
       newName: '',
@@ -99,12 +95,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.border {
-    border-style: groove;
+.obsList {
+    border-style: solid;
     width: 24%;
     float:left;
     background-color: rgb(31, 30, 31);
     margin-right: 5px;
+    border-color: rgb(70, 69, 70);
 }
 .whiteText {
   color: white;
@@ -142,5 +139,11 @@ export default defineComponent({
  color: white;
  padding: 5px;
  text-align: center;
+}
+
+.scroll {
+  overflow: scroll;
+  height: 200px;
+  overflow-x: hidden;
 }
 </style>

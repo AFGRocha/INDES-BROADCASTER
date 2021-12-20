@@ -1,7 +1,7 @@
 <template>
-  <div class="border">
+  <div class="obsList">
       <div class="tableTitle"> Playlist </div>
-    <draggable class="" :list="list" @change="log">
+    <draggable class="scroll" :list="list" @change="log">
       <div
         class="m-1 rounded-md whiteText"
         v-for="element in list"
@@ -55,7 +55,7 @@ export default defineComponent({
         { name: 'Bunny', url: 'mov_bbb.mp4', id: 1, type: 'local' },
         { name: 'Design', url: 'design.mp4', id: 2, type: 'local' },
         { name: 'Bullshit', url: 'ilXD38KGsQ8', id: 3, type: 'youtube' },
-        { name: 'Design', url: 'design.mp4', id: 2, type: 'local' },
+        { name: 'Design', url: 'design.mp4', id: 2, type: 'local' }
       ],
       dragging: false,
       newName: '',
@@ -91,12 +91,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.border {
-    border-style: groove;
+.obsList {
+    border-style: solid;
     width: 24%;
     float:left;
     background-color: rgb(31, 30, 31);
     margin-right: 5px;
+    border-color: rgb(70, 69, 70);
 }
 .whiteText {
   color: white;
@@ -134,5 +135,11 @@ export default defineComponent({
  color: white;
  padding: 5px;
  text-align: center;
+}
+
+.scroll {
+  overflow: scroll;
+  height: 200px;
+  overflow-x: hidden;
 }
 </style>
