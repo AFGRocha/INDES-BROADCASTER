@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <draggable class="" :list="list" @change="log">
+    <draggable class="" :list="list" @change="updateList">
       <div
         class="listItem"
         v-for="element in list"
@@ -26,17 +26,17 @@ export default defineComponent({
       list: [
         { component: 'Videos', name: 'YouTube Video', id: 1 },
         { component: 'LiveCamera', name: 'Local Camera 1', id: 2 },
-        { component: 'LiveCamera', name: 'IP Camera', id: 3 },
-        { component: 'LiveCamera', name: 'Local Video', id: 4 },
+        { component: 'IPCamera', name: 'IP Camera', id: 3 },
+        { component: 'LocalVideo', name: 'Local Video', id: 4 },
         { component: 'LiveCamera', name: 'Local Camera 2', id: 5 },
-        { component: 'LiveCamera', name: 'IP Camera 2', id: 6 }
+        { component: 'IPCamera', name: 'IP Camera 2', id: 6 }
       ],
       dragging: false
     }
   },
   methods: {
-    videoToStore (id) {
-      this.$store.commit('updateYoutube', id)
+    updateList () {
+      this.$store.state.componentList = this.list
     }
   }
 })

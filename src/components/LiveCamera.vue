@@ -8,7 +8,7 @@ export default {
   props: {
     width: Number,
     height: Number,
-    id: String
+    type: String
   },
   data: function () {
     return {
@@ -16,10 +16,18 @@ export default {
       isPhotoTaken: false,
       isShotPhoto: false,
       isLoading: false,
-      link: '#'
+      link: '#',
+      id: ''
     }
   },
   created () {
+    if (this.type === 'Local Camera 1') {
+      this.id = this.$store.state.localCamera1
+    } else if (this.type === 'Local Camera 2') {
+      this.id = this.$store.state.localCamera2
+    } else if (this.type === 'Live') {
+      this.id = this.$store.state.liveCamera
+    }
     this.createCameraElement()
   },
   beforeUnmount () {

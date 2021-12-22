@@ -54,7 +54,7 @@ export default defineComponent({
     return {
       enabled: true,
       list: [
-        { name: 'Phone', url: 'https://192.168.1.76:8080/video', id: 1 },
+        { name: 'Phone', url: 'https://192.168.1.77:8080/video', id: 1 },
         { name: 'Spain', url: 'http://185.10.80.33:8082/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER', id: 2 }
       ],
       dragging: false,

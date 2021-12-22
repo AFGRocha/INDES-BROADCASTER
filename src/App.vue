@@ -4,25 +4,27 @@
       <div class="table-row">
       <div class="table-cell">
           <div class="card rounded-0">
-            <h5 class="card-header">YouTube Video</h5>
+            <h5 class="card-header">{{ $store.state.componentList[0].name }} <button v-if="$store.state.componentList[0].name ==='Local Camera 1' || $store.state.componentList[0].name ==='Local Camera 2' " class="inlineButtons" @click="selectGear($store.state.componentList[0].name)" data-bs-toggle="modal" data-bs-target="#cameraModal"><img width="20" :src="gear"></button></h5>
             <div class="card-body">
-              <Videos :width="getSmallerWidth" height="240"/>
+              <component :is="$store.state.componentList[0].component" :width="getSmallerWidth" height="240" :type="$store.state.componentList[0].name" :key="componentKey"></component>
             </div>
           </div>
         </div>
         <div class="table-cell">
           <div class="card rounded-0">
-            <h5 class="card-header">Local Camera <button class="inlineButtons" @click="selectGear('camera1')" data-bs-toggle="modal" data-bs-target="#cameraModal"><img width="20" :src="gear"></button></h5>
+            <h5 class="card-header">{{ $store.state.componentList[1].name }} <button v-if="$store.state.componentList[1].name ==='Local Camera 1' || $store.state.componentList[1].name ==='Local Camera 2' " class="inlineButtons" @click="selectGear($store.state.componentList[1].name)" data-bs-toggle="modal" data-bs-target="#cameraModal"><img width="20" :src="gear"></button></h5>
             <div class="card-body">
-              <LiveCamera :width="getSmallerWidth" height="240" :id="localCamera1" :key="localCamera1"/>
+              <component :is="$store.state.componentList[1].component" :width="getSmallerWidth" height="240" :type="$store.state.componentList[1].name" :key="componentKey"></component>
+              <!-- <LiveCamera :width="getSmallerWidth" height="240" :id="localCamera1" :key="localCamera1"/> -->
             </div>
           </div>
         </div>
         <div class="table-cell">
           <div class="card rounded-0">
-            <h5 class="card-header">IP Camera</h5>
+            <h5 class="card-header">{{ $store.state.componentList[2].name }} <button v-if="$store.state.componentList[2].name ==='Local Camera 1' || $store.state.componentList[2].name ==='Local Camera 2' " class="inlineButtons" @click="selectGear($store.state.componentList[2].name)" data-bs-toggle="modal" data-bs-target="#cameraModal"><img width="20" :src="gear"></button></h5>
             <div class="card-body">
-              <IPCamera :width="getSmallerWidth" height="240" :source="$store.state.ipCamera1"/>
+              <component :is="$store.state.componentList[2].component" :width="getSmallerWidth" height="240" :type="$store.state.componentList[2].name" :key="componentKey"></component>
+              <!-- <IPCamera :width="getSmallerWidth" height="240" :source="$store.state.ipCamera1"/> -->
             </div>
           </div>
         </div>
@@ -30,25 +32,30 @@
       <div class="table-row">
         <div class="table-cell">
           <div class="card rounded-0">
-            <h5 class="card-header">Local Video</h5>
+            <h5 class="card-header">{{ $store.state.componentList[3].name }} <button v-if="$store.state.componentList[3].name ==='Local Camera 1' || $store.state.componentList[3].name ==='Local Camera 2' " class="inlineButtons" @click="selectGear($store.state.componentList[3].name)" data-bs-toggle="modal" data-bs-target="#cameraModal"><img width="20" :src="gear"></button></h5>
             <div class="card-body">
-              <LocalVideo :width="getSmallerWidth" height="240"/>
+              <component :is="$store.state.componentList[3].component" :width="getSmallerWidth" height="240" :type="$store.state.componentList[3].name" :key="componentKey"></component>
+              <!-- <LocalVideo :width="getSmallerWidth" height="240"/> -->
             </div>
           </div>
         </div>
         <div class="table-cell">
           <div class="card rounded-0">
-            <h5 class="card-header">Local Camera 2 <button class="inlineButtons" @click="selectGear('camera2')" data-bs-toggle="modal" data-bs-target="#cameraModal"><img width="20" :src="gear"></button></h5>
+            <h5 class="card-header">{{ $store.state.componentList[4].name }} <button v-if="$store.state.componentList[4].name ==='Local Camera 1' || $store.state.componentList[4].name ==='Local Camera 2' " class="inlineButtons" @click="selectGear($store.state.componentList[4].name)" data-bs-toggle="modal" data-bs-target="#cameraModal"><img width="20" :src="gear"></button></h5>
             <div class="card-body">
-              <LiveCamera :width="getSmallerWidth" height="240" :id="localCamera2" :key="localCamera2"/>
+              <component :is="$store.state.componentList[4].component" :width="getSmallerWidth" height="240" :type="$store.state.componentList[4].name" :key="componentKey"></component>
+
+              <!-- <LiveCamera :width="getSmallerWidth" height="240" :id="localCamera2" :key="localCamera2"/> -->
             </div>
           </div>
         </div>
         <div class="table-cell">
           <div class="card rounded-0">
-            <h5 class="card-header">IP Camera 2</h5>
+            <h5 class="card-header">{{ $store.state.componentList[5].name }} <button v-if="$store.state.componentList[5].name ==='Local Camera 1' || $store.state.componentList[5].name ==='Local Camera 2' " class="inlineButtons" @click="selectGear($store.state.componentList[5].name)" data-bs-toggle="modal" data-bs-target="#cameraModal"><img width="20" :src="gear"></button></h5>
             <div class="card-body">
-              <IPCamera :width="getSmallerWidth" height="240" :source="$store.state.ipCamera2"/>
+              <component :is="$store.state.componentList[5].component" :width="getSmallerWidth" height="240" :type="$store.state.componentList[5].name" :key="componentKey"></component>
+
+              <!-- <IPCamera :width="getSmallerWidth" height="240" :source="$store.state.ipCamera2"/> -->
             </div>
           </div>
         </div>
@@ -60,7 +67,7 @@
       <h5 class="card-header">Live Area</h5>
       <div class="card-body">
         <img v-show="isLogo" class="logoImg" :src="ippLogo">
-        <component ref="live" :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource" :id="liveCamera" :key="liveCamera"></component>
+        <component ref="live" :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource" :id="liveCamera" :key="$store.state.liveCamera" type="Live"></component>
       </div>
     </div>
 </div>
@@ -191,11 +198,11 @@ export default {
       isLogo: false,
       logoController: -1,
       recording: -1,
-      recordedVideo: null
+      recordedVideo: null,
+      componentKey: ''
     }
   },
   created () {
-    console.log(this.selectedCam.camera1)
     navigator.mediaDevices.enumerateDevices()
       .then((devices) => {
         devices.forEach((device) => {
@@ -209,7 +216,6 @@ export default {
       })
 
     this.tableWidth = (window.innerWidth / 2) / 3 + 'px'
-    console.log(this.availableCameras)
   },
   mounted () {
     this.previousElement = this.$refs.camera1Button
@@ -222,22 +228,28 @@ export default {
       element.classList.add('selectedButton')
       this.previousElement = element
       this.liveArea = component
-      this.liveIPSource = source
+      this.$store.state.liveIPCamera = source
       if (element.innerHTML === 'Camera 1') {
-        this.liveCamera = this.localCamera1
+        this.$store.state.liveCamera = this.$store.state.localCamera1
       } else if (element.innerHTML === 'Camera 2') {
-        this.liveCamera = this.localCamera2
+        this.$store.state.liveCamera = this.$store.state.localCamera2
       }
     },
     changeCam (camNumber, camID) {
       if (camNumber === 'camera1') {
-        this.localCamera1 = camID
+        this.$store.state.localCamera1 = camID
+        this.componentKey = camID
       } else if (camNumber === 'camera2') {
-        this.localCamera2 = camID
+        this.$store.state.localCamera2 = camID
+        this.componentKey = camID
       }
     },
     selectGear (gear) {
-      this.selectedGear = gear
+      if (gear === 'Local Camera 1') {
+        this.selectedGear = 'camera1'
+      } else if (gear === 'Local Camera 2') {
+        this.selectedGear = 'camera2'
+      }
     },
     showLogo (e) {
       this.logoController = -this.logoController

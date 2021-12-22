@@ -82,6 +82,7 @@ export default defineComponent({
     newVideo () {
       const lastId = Math.max.apply(Math, this.list.map(function (o) { return o.id }))
       this.list.push({ name: this.newName, url: this.getId(this.newURL), id: lastId + 1 })
+      this.$store.commit('newAvailableVideo', { name: this.newName, url: this.getId(this.newURL), type: 'youtube' })
       this.newName = ''
       this.newURL = ''
     }
