@@ -65,9 +65,10 @@
 <div class="element-live">
     <div class="card rounded-0">
       <h5 class="card-header">Live Area</h5>
-      <div class="card-body">
+      <div class="card-body live-area-card ">
         <img v-show="isLogo" class="logoImg" :src="ippLogo">
         <component ref="live" :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource" :id="liveCamera" :key="$store.state.liveCamera" type="Live"></component>
+        <div class="spacing"/>
       </div>
     </div>
 </div>
@@ -107,7 +108,7 @@
      <button class="switchButton large" @click="startPlaylist">Play playlist</button>
     </center>
     <center>
-    <button class="switchButton large" data-bs-toggle="modal" data-bs-target="#layoutModal">Edit Layout</button>
+    <button class="switchButton large lastButton" data-bs-toggle="modal" data-bs-target="#layoutModal">Edit Layout</button>
     </center>
   </div>
 </div>
@@ -146,7 +147,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="">Save</button>
       </div>
     </div>
   </div>
@@ -476,5 +476,19 @@ width: 234px;
 
 .card{
  background-color: rgb(54, 53, 54) !important;
+}
+
+.lastButton {
+  margin-bottom: 29px;
+}
+.spacing {
+  padding-bottom: 21px;
+}
+.card-body{
+  min-height: 278px;
+}
+
+.live-area-card {
+  min-height: 599px;
 }
 </style>

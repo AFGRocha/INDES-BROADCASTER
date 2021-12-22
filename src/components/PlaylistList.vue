@@ -78,6 +78,7 @@ export default defineComponent({
     removeVideo (selecterdId) {
       const index = this.list.findIndex(x => x.id === selecterdId)
       this.list = [...this.list.slice(0, index), ...this.list.slice(index + 1)]
+      this.$store.state.playlist = this.list
     },
     newVideo () {
       const lastId = Math.max.apply(Math, this.list.map(function (o) { return o.id }))
