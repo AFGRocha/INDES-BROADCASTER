@@ -60,7 +60,7 @@
       <h5 class="card-header">Live Area</h5>
       <div class="card-body">
         <img v-show="isLogo" class="logoImg" :src="ippLogo">
-        <component :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource" :id="liveCamera" :key="liveCamera"></component>
+        <component ref="live" :is="getLiveArea" :width="getBiggerWidth" height="540" :source="liveIPSource" :id="liveCamera" :key="liveCamera"></component>
       </div>
     </div>
 </div>
@@ -93,7 +93,10 @@
   </div>
     <div>
     <center>
-     <button class="switchButton large" @click="changeLive('IPCamera',$store.state.ipCamera2)">Record Broadcast</button>
+     <button class="switchButton large" @click="startButton">Record Broadcast</button>
+       <a v-show="false" id="downloadButton" class="button">
+        Download
+      </a>
     </center>
   </div>
     <div>
@@ -135,6 +138,7 @@ import IPList from './components/IPList.vue'
 import LocalVideo from './components/LocalVideo.vue'
 import PlaylistList from './components/PlaylistList.vue'
 import Playlist from './components/Playlist.vue'
+import { VueDraggableNext } from 'vue-draggable-next'
 
 export default {
   name: 'App',
@@ -147,7 +151,8 @@ export default {
     IPList,
     LocalVideo,
     PlaylistList,
-    Playlist
+    Playlist,
+    VueDraggableNext
   },
   data: function () {
     return {
@@ -166,7 +171,9 @@ export default {
       gear: require('./assets/gear_white.png'),
       ippLogo: require('./assets/ipp.png'),
       isLogo: false,
-      logoController: -1
+      logoController: -1,
+      recording: -1,
+      recordedVideo: null
     }
   },
   created () {
@@ -225,6 +232,52 @@ export default {
     },
     startPlaylist () {
       this.liveArea = 'Playlist'
+    },
+    wait (delayInMS) {
+      return new Promise(resolve => setTimeout(resolve, delayInMS))
+    },
+    startRecording (stream, lengthInMS) {
+      const recorder = new MediaRecorder(stream)
+      const data = []
+
+      recorder.ondataavailable = event => data.push(event.data)
+      recorder.start()
+      console.log(recorder.state + ' for ' + (lengthInMS / 1000) + ' seconds...')
+
+      const stopped = new Promise((resolve, reject) => {
+        recorder.onstop = resolve
+        recorder.onerror = event => reject(event.name)
+      })
+
+      const recorded = this.wait(lengthInMS).then(
+        () => recorder.state === 'recording' && recorder.stop()
+      )
+
+      return Promise.all([
+        stopped,
+        recorded
+      ])
+        .then(() => data)
+    },
+    stop (stream) {
+      stream.getTracks().forEach(track => track.stop())
+    },
+    startButton () {
+      const downloadButton = document.getElementById('downloadButton')
+      if (this.recording === -1) {
+        this.recording = -this.recording
+        this.$refs.live.$el.captureStream = this.$refs.live.$el.captureStream || this.$refs.live.$el.mozCaptureStream
+        this.startRecording(this.$refs.live.$el.captureStream(), 20000).then(recordedChunks => {
+          const recordedBlob = new Blob(recordedChunks, { type: 'video/mp4' })
+          this.recordedVideo = URL.createObjectURL(recordedBlob)
+          downloadButton.href = this.recordedVideo
+          downloadButton.download = 'RecordedVideo.webm'
+          downloadButton.click()
+        })
+      } else {
+        this.stop(this.$refs.live.$el.srcObject)
+        this.liveCamera = '0'
+      }
     }
   },
   computed: {

@@ -45,14 +45,10 @@ export default {
         audio: false,
         video: { deviceId: this.id }
       })
-      console.log(constraints)
       navigator.mediaDevices
         .getUserMedia(constraints)
         .then((stream) => {
           this.isLoading = false
-          setTimeout(() => {
-            console.log(this.$refs.camera)
-          }, 2000)
 
           this.$refs.camera.srcObject = stream
         })
