@@ -88,12 +88,8 @@
   </div>
   <div>
     <center>
-     <button class="switchButton large" @click="showLogo">Stream Broadcast</button>
-    </center>
-  </div>
-    <div>
-    <center>
-     <button class="switchButton large" @click="startButton">Record Broadcast</button>
+     <button class="switchButton medium" @click="showLogo($event)">Stream Broadcast</button>
+          <button class="switchButton medium" @click="startButton">Record Broadcast</button>
        <a v-show="false" id="downloadButton" class="button">
         Download
       </a>
@@ -102,6 +98,9 @@
     <div>
     <center>
      <button class="switchButton large" @click="startPlaylist">Play playlist</button>
+    </center>
+    <center>
+    <button class="switchButton large" data-bs-toggle="modal" data-bs-target="#layoutModal">Edit Layout</button>
     </center>
   </div>
 </div>
@@ -126,6 +125,25 @@
     </div>
   </div>
 </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="layoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Layout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <EditLayout/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -138,7 +156,7 @@ import IPList from './components/IPList.vue'
 import LocalVideo from './components/LocalVideo.vue'
 import PlaylistList from './components/PlaylistList.vue'
 import Playlist from './components/Playlist.vue'
-import { VueDraggableNext } from 'vue-draggable-next'
+import EditLayout from './components/EditLayout.vue'
 
 export default {
   name: 'App',
@@ -152,7 +170,7 @@ export default {
     LocalVideo,
     PlaylistList,
     Playlist,
-    VueDraggableNext
+    EditLayout
   },
   data: function () {
     return {
@@ -221,12 +239,15 @@ export default {
     selectGear (gear) {
       this.selectedGear = gear
     },
-    showLogo () {
-      console.log(this.isLogo)
+    showLogo (e) {
       this.logoController = -this.logoController
+      const element = e.target
+
       if (this.logoController === 1) {
+        element.classList.add('selectedButton')
         this.isLogo = true
       } else {
+        element.classList.remove('selectedButton')
         this.isLogo = false
       }
     },
@@ -262,9 +283,11 @@ export default {
     stop (stream) {
       stream.getTracks().forEach(track => track.stop())
     },
-    startButton () {
+    startButton (e) {
       const downloadButton = document.getElementById('downloadButton')
+      const element = e.target
       if (this.recording === -1) {
+        element.classList.add('selectedButton')
         this.recording = -this.recording
         this.$refs.live.$el.captureStream = this.$refs.live.$el.captureStream || this.$refs.live.$el.mozCaptureStream
         this.startRecording(this.$refs.live.$el.captureStream(), 20000).then(recordedChunks => {
@@ -275,6 +298,7 @@ export default {
           downloadButton.click()
         })
       } else {
+        element.classList.remove('selectedButton')
         this.stop(this.$refs.live.$el.srcObject)
         this.liveCamera = '0'
       }
@@ -383,6 +407,10 @@ body{
 
 .large{
 width: 489px;
+}
+
+.medium{
+width: 234px;
 }
 
 .inlineButtons {
