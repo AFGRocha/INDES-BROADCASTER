@@ -15,12 +15,12 @@
       </div>
     </draggable>
     <div class="add">
-      <button class="addButton" data-bs-toggle="modal" data-bs-target="#youtubeModal">+</button>
+      <button class="addButton" data-bs-toggle="modal" data-bs-target="#ipModal">+</button>
    </div>
   </div>
 
   <!-- Modal -->
-<div class="modal fade" id="youtubeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ipModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -35,7 +35,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="newVideo">Add Video</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="newVideo">Add Camera</button>
       </div>
     </div>
   </div>
@@ -54,7 +54,7 @@ export default defineComponent({
     return {
       enabled: true,
       list: [
-        { name: 'Phone', url: 'https://192.168.1.77:8080/video', id: 1 },
+        { name: 'Austria', url: 'http://91.133.85.170:8090/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER', id: 1 },
         { name: 'Spain', url: 'http://185.10.80.33:8082/cgi-bin/faststream.jpg?stream=half&fps=15&rand=COUNTER', id: 2 }
       ],
       dragging: false,
@@ -86,7 +86,7 @@ export default defineComponent({
     },
     newVideo () {
       const lastId = Math.max.apply(Math, this.list.map(function (o) { return o.id }))
-      this.list.push({ name: this.newName, url: this.getId(this.newURL), id: lastId + 1 })
+      this.list.push({ name: this.newName, url: this.newURL, id: lastId + 1 })
       this.newName = ''
       this.newURL = ''
     }
