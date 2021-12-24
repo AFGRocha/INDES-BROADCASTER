@@ -49,7 +49,6 @@ export default {
   watch: {
     video: function (newVideo) {
       const mediaElem = document.getElementById('teste')
-      console.log(mediaElem)
       mediaElem.load()
     }
   }

@@ -222,7 +222,6 @@ export default {
   },
   methods: {
     changeLive (e, component, source) {
-      console.log(e.target.innerHTML)
       const element = e.target
       this.previousElement.classList.remove('selectedButton')
       element.classList.add('selectedButton')

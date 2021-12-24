@@ -82,12 +82,10 @@ export default defineComponent({
     },
     newVideo () {
       const lastId = Math.max.apply(Math, this.list.map(function (o) { return o.id }))
-      console.log(this.selectedVideo)
       this.list.push({ name: this.selectedVideo.name, url: this.selectedVideo.url, id: lastId + 1, type: this.selectedVideo.type })
     },
     updateList () {
       this.$store.state.playlist = this.list
-      console.log(this.list)
     }
   }
 }) //

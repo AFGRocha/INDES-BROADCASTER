@@ -23,7 +23,6 @@ export default {
     // whenever question changes, this function will run
     video: function (newVideo) {
       const mediaElem = document.getElementById('teste')
-      console.log(mediaElem)
       mediaElem.load()
     }
   }

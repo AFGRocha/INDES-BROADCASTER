@@ -78,7 +78,6 @@ export default defineComponent({
       this.$store.commit('newAvailableVideo', { name: this.newName, url: this.file.name, type: 'local' })
       this.newName = ''
       this.file = null
-      console.log(this.$store.state.availableVideos)
     },
     readFile () {
       this.file = this.$refs.doc.files[0]
