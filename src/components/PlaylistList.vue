@@ -53,7 +53,7 @@ export default defineComponent({
       list: [
         { name: 'Globe', url: 'globe.mp4', id: 1, type: 'local' },
         { name: 'Design', url: 'design.mp4', id: 2, type: 'local' },
-        { name: 'Bullshit', url: 'ilXD38KGsQ8', id: 3, type: 'youtube' },
+        { name: 'Tutorial Matricula ISEP', url: 'r5hX-NdV8Hw', id: 3, type: 'youtube' },
         { name: 'Design', url: 'design.mp4', id: 4, type: 'local' }
       ],
       dragging: false,

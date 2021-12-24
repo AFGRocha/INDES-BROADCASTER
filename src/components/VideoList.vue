@@ -53,8 +53,8 @@ export default defineComponent({
     return {
       enabled: true,
       list: [
-        { name: 'Bullshit', url: 'ilXD38KGsQ8', id: 1 },
-        { name: 'Larry Lurr Memes', url: 'e4AYkPaRQAA', id: 2 }
+        { name: 'Tutorial Matricula ISEP', url: 'r5hX-NdV8Hw', id: 1 },
+        { name: 'Vue Crash Course 2021', url: 'qZXt1Aom3Cs', id: 2 }
       ],
       dragging: false,
       newName: '',

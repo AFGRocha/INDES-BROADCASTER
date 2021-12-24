@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    currentYoutube: 'ilXD38KGsQ8',
+    currentYoutube: 'r5hX-NdV8Hw',
     localCamera1: '22887e4d026d0e60a4a60ae0ad4366128b0054185b0096214f9905d384e37835',
     localCamera2: '4c548f99f375d149a1426259a08ea3bbf1f714fa36f64c459f074c8ccbb89f9e',
     ipCamera1: 'https://192.168.1.77:8080/video',
@@ -14,8 +14,8 @@ export default createStore({
     availableVideos: [
       { name: 'Globe', url: 'globe.mp4', type: 'local' },
       { name: 'Design', url: 'design.mp4', type: 'local' },
-      { name: 'Bullshit', url: 'ilXD38KGsQ8', type: 'youtube' },
-      { name: 'Larry Lurr Memes', url: 'e4AYkPaRQAA', type: 'youtube' }
+      { name: 'Tutorial Matricula ISEP', url: 'r5hX-NdV8Hw', type: 'youtube' },
+      { name: 'Vue Crash Course 2021', url: 'qZXt1Aom3Cs', type: 'youtube' }
     ],
     componentList: [
       { component: 'Videos', name: 'YouTube Video', id: 1 },
